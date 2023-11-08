@@ -3,18 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <title>PartyPlanner</title>
   </head>
   <body>
     <h1>Party Planner</h1>
-    <div class="listingcontainer">
-        
-        
-          <id class="listings">
-            Name: date: Times: Locations:
-            <div class="userlist">
-            <form>
+
+    <form id="addGuest">
+      <label>
+        Name
+        <input type="text" name="name" />
+      </label>
+      <label>
+        Email
+        <input type="email" email="email" />
+      </label>
+      <label>
+        Dates
+        <input type="date" date="dates" />
+      </label>
+      <label>
+        Time
+        <input type="time" date="time" />
+      </label>
+      <label>
+        Location
+        <input type="location" date="location" />
+      </label>
+
+      <label>
+        Description
+        <input type="description" date="description" />
+      </label>
+
+      <button>Add Guest</button>
+    </form>
+    <ul id="Guest"></ul>
+
+    <!-- <form>
                <label for="name">Full Name</label>
                <input type="text"  id="name">
                <label for="date">Date</label>
@@ -24,14 +50,8 @@
                <label for="location">location</label>
                <input type="location"  id="location">
                <input type ="submit" value ="submit">
-            </form>
-        </div> 
-          </id>
-      </div>
-        </div>
+            </form> -->
 
-   
-   
     <script src="index.js"></script>
   </body>
 </html>
