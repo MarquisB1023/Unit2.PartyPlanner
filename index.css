@@ -1,0 +1,20 @@
+.listingcontainer {
+ text-align: center;
+  height: 670px;
+  width: 100vh;
+ justify-content: center;
+ position: 60%px;
+ margin: auto;
+ padding: auto;
+ border-radius: 5px;
+flex-direction: row ;
+}
+
+
+h1 {
+    font: 500px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: auto;
+}
