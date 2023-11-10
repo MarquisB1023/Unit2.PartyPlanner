@@ -68,6 +68,7 @@ const BASE_URL = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2308-acc-et-we
 const EVENTS = `${BASE_URL}/events`;
 
 const FORM = document.querySelector("form");
+
 FORM.addEventListener("submit", async function (event) {
   event.preventDefault();
   const elements = FORM.elements;
@@ -79,7 +80,7 @@ FORM.addEventListener("submit", async function (event) {
 
   const newPartyData = {
     name: partyName,
-    date: `${partyDate}T${partyTime}:00Z`,
+    date: new Date(`${partyDate}${partyTime}`).toISOString(),
     location: partyLocation,
     description: partyDescription,
   };
@@ -88,32 +89,43 @@ FORM.addEventListener("submit", async function (event) {
   fetchEvents();
 });
 
-function createPartyCard(tittle, fullName, date, address, description) {
+function formatDatetime(date, time) {
+  return new Date(`${date}T${time}`).toISOString();
+}
+
+function createPartyCard(party) {
   const PARTY_CARDS = document.querySelector("#cards");
   const PARTY_CARD = document.createElement("div");
   PARTY_CARD.classList.add("card");
-  const PARTY_CARD_TITTLE = document.createElement("div");
-  PARTY_CARD_TITTLE.textContent = tittle;
-  PARTY_CARD_TITTLE.classList.add("tittle");
+  const PARTY_CARD_TITLE = document.createElement("div");
+  PARTY_CARD_TITLE.textContent = party.title;
+  PARTY_CARD_TITLE.classList.add("title");
   const PARTY_CARD_NAME = document.createElement("p");
-  PARTY_CARD_NAME.textContent = fullName;
+  PARTY_CARD_NAME.textContent = party.name;
   PARTY_CARD_NAME.classList.add("fullName");
   const PARTY_CARD_DATE = document.createElement("p");
-  PARTY_CARD_DATE.textContent = date;
+  PARTY_CARD_DATE.textContent = party.date;
   PARTY_CARD_DATE.classList.add("date");
   const PARTY_CARD_ADDRESS = document.createElement("p");
-  PARTY_CARD_ADDRESS.textContent = address;
+  PARTY_CARD_ADDRESS.textContent = party.address;
   PARTY_CARD_ADDRESS.classList.add("address");
   const PARTY_CARD_DESCRIPTION = document.createElement("p");
-  PARTY_CARD_DESCRIPTION.textContent = description;
+  PARTY_CARD_DESCRIPTION.textContent = party.description;
   PARTY_CARD_DESCRIPTION.classList.add("description");
 
+  const deleteButton = document.createElement("button");
+  deleteButton.addEventListener("click", () => {
+    deleteEvent(party.id);
+  });
+  deleteButton.textContent = "delete";
+
   PARTY_CARD.append(
-    PARTY_CARD_TITTLE,
+    PARTY_CARD_TITLE,
     PARTY_CARD_NAME,
     PARTY_CARD_DATE,
     PARTY_CARD_ADDRESS,
-    PARTY_CARD_DESCRIPTION
+    PARTY_CARD_DESCRIPTION,
+    deleteButton
   );
 
   PARTY_CARDS.append(PARTY_CARD);
@@ -121,7 +133,7 @@ function createPartyCard(tittle, fullName, date, address, description) {
 
 function renderPartyCards(parties) {
   for (const party of parties) {
-    createPartyCard(party.name, party.date, party.address, party.description);
+    createPartyCard(party);
   }
 }
 
@@ -154,8 +166,25 @@ async function createEvent(event) {
 
       return;
     }
-    const jsonResponse = await response.json();
-    const parties = jsonResponse.data;
+
+    console.log(parties);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function deleteEvent(id) {
+  try {
+    const response = await fetch(("${EVENTS, ENDPOINT}/id"),{
+      method: "DELETE",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(event),
+    });
+    if (!response.ok) {
+      console.log(`API error`, response);
+
+      return;
+    }
 
     console.log(parties);
   } catch (err) {
