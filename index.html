@@ -7,7 +7,66 @@
     <title>PartyPlanner</title>
   </head>
   <body>
-    <h1>Party Planner</h1>
+    <!-- <h1>Party Planner</h1>
+    <form id="addGuest">
+        <label>
+          Name
+          <input type="text" name="name" />
+        </label>
+        <label>
+          Email
+          <input type="email" email="email" />
+        </label>
+        <label>
+          Dates
+          <input type="date" date="dates" />
+        </label>
+        <label>
+          Time
+          <input type="time" date="time" />
+        </label>
+        <label>
+          Location
+          <input type="location" date="location" />
+        </label>
+  
+        <label>
+          Description
+          <input type="description" date="description" />
+        </label>
+  
+        <button>Add Guest</button>
+      </form>
+      <ul id="Guest"></ul> -->
+
+      <h1>Party List</h1>
+
+    <!-- List of parties -->
+    <ul id="partyList"></ul>
+
+    <!-- Form to add a new party -->
+    <form id="partyForm" method="POST">
+      <input
+        type="text"
+        name="partyName"
+        id="partyName"
+        placeholder="Party Name"
+        required
+      />
+      <input name="partyDate"type="date"  id="partyDate" required />
+      <input name="partTime" type="time" id="partyTime" required />
+      <input name="partyLocation"type="location" id="partyLocation" placeholder="Location required" />
+      <textarea
+        name=""
+        id="partyDescription"
+        placeholder="Party Description"
+        cols="5"
+        rows="5"
+        required
+      ></textarea>
+      <button type="submit">Schedule Party</button>
+    </form>
+    
     <div id="cards">
        <div class="card">
        <h2 class="title">Rolling to the Party</h2>
@@ -18,36 +77,9 @@
 
        </div>
     </div>
-    <form id="addGuest">
-      <label>
-        Name
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Email
-        <input type="email" email="email" />
-      </label>
-      <label>
-        Dates
-        <input type="date" date="dates" />
-      </label>
-      <label>
-        Time
-        <input type="time" date="time" />
-      </label>
-      <label>
-        Location
-        <input type="location" date="location" />
-      </label>
 
-      <label>
-        Description
-        <input type="description" date="description" />
-      </label>
-
-      <button>Add Guest</button>
-    </form>
-    <ul id="Guest"></ul>
+    
+    
 
     <!-- <form>
                <label for="name">Full Name</label>
