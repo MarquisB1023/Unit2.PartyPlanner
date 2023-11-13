@@ -68,6 +68,7 @@ const BASE_URL = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2308-acc-et-we
 const EVENTS = `${BASE_URL}/events`;
 
 const FORM = document.querySelector("form");
+const PARTY_CARDS = document.querySelector("#cards");
 
 FORM.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -80,7 +81,7 @@ FORM.addEventListener("submit", async function (event) {
 
   const newPartyData = {
     name: partyName,
-    date: new Date(`${partyDate}${partyTime}`).toISOString(),
+    date: new Date(`${partyDate}T${partyTime}`).toISOString(),
     location: partyLocation,
     description: partyDescription,
   };
@@ -94,7 +95,6 @@ function formatDatetime(date, time) {
 }
 
 function createPartyCard(party) {
-  const PARTY_CARDS = document.querySelector("#cards");
   const PARTY_CARD = document.createElement("div");
   PARTY_CARD.classList.add("card");
   const PARTY_CARD_TITLE = document.createElement("div");
@@ -114,9 +114,12 @@ function createPartyCard(party) {
   PARTY_CARD_DESCRIPTION.classList.add("description");
 
   const deleteButton = document.createElement("button");
-  deleteButton.addEventListener("click", () => {
-    deleteEvent(party.id);
+  deleteButton.addEventListener("click", async () => {
+    await deleteEvent(party.id);
+    fetchEvents();
+
   });
+
   deleteButton.textContent = "delete";
 
   PARTY_CARD.append(
@@ -132,6 +135,7 @@ function createPartyCard(party) {
 }
 
 function renderPartyCards(parties) {
+  PARTY_CARDS.innerHTML = "";
   for (const party of parties) {
     createPartyCard(party);
   }
@@ -166,8 +170,6 @@ async function createEvent(event) {
 
       return;
     }
-
-    console.log(parties);
   } catch (err) {
     console.error(err);
   }
@@ -175,18 +177,15 @@ async function createEvent(event) {
 
 async function deleteEvent(id) {
   try {
-    const response = await fetch(("${EVENTS, ENDPOINT}/id"),{
+    const response = await fetch(`${EVENTS}/${id}`, {
       method: "DELETE",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(event),
     });
     if (!response.ok) {
       console.log(`API error`, response);
 
       return;
     }
-
-    console.log(parties);
   } catch (err) {
     console.error(err);
   }
